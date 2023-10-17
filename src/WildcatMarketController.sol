@@ -118,16 +118,17 @@ contract WildcatMarketController is IWildcatMarketControllerEventsAndErrors {
   /**
    * @dev Returns the set of authorized lenders.
    */
+  // @audit Block Gas Limit can be excedded here . Look into it some more 
   function getAuthorizedLenders() external view returns (address[] memory) {
     return _authorizedLenders.values();
   }
-
+// @audit i think this does the same thing as above but it does so using less gas 
   function getAuthorizedLenders(
     uint256 start,
     uint256 end
   ) external view returns (address[] memory arr) {
     uint256 len = _authorizedLenders.length();
-    end = MathUtils.min(end, len);
+    end = MathUtils.min(end, len); // @audit why is this done ?? 
     uint256 count = end - start;
     arr = new address[](count);
     for (uint256 i = 0; i < count; i++) {
