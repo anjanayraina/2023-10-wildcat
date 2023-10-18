@@ -155,7 +155,7 @@ contract WildcatMarketController is IWildcatMarketControllerEventsAndErrors {
     for (uint256 i = 0; i < lenders.length; i++) {
       address lender = lenders[i];
       if (_authorizedLenders.add(lender)) {
-        emit LenderAuthorized(lender);
+        emit LenderAuthorized(lender); // @audit GO istead of emitting out indivisual addresses , you can just pass the whole array as an event 
       }
     }
   }
@@ -171,7 +171,7 @@ contract WildcatMarketController is IWildcatMarketControllerEventsAndErrors {
     for (uint256 i = 0; i < lenders.length; i++) {
       address lender = lenders[i];
       if (_authorizedLenders.remove(lender)) {
-        emit LenderDeauthorized(lender);
+        emit LenderDeauthorized(lender); 
       }
     }
   }
@@ -180,6 +180,8 @@ contract WildcatMarketController is IWildcatMarketControllerEventsAndErrors {
    * @dev Update lender authorization for a set of markets to the current
    *      status.
    */
+
+  // @audit read about this function a little more 
   function updateLenderAuthorization(address lender, address[] memory markets) external {
     for (uint256 i; i < markets.length; i++) {
       address market = markets[i];
@@ -289,6 +291,8 @@ contract WildcatMarketController is IWildcatMarketControllerEventsAndErrors {
    *      transfers `originationFeeAmount` of `originationFeeAsset` from
    *      `msg.sender` to `feeRecipient`.
    */
+
+  // @audit this is a vurnerable part of the code . Look more into it. This deploys the temprorily stored market
   function deployMarket(
     address asset,
     string memory namePrefix,

@@ -21,6 +21,7 @@ contract WildcatMarketBase is ReentrancyGuard, IMarketEventsAndErrors {
   //                       Market Config (immutable)                       //
   // ==================================================================== //
 
+  
   string public constant version = '1.0';
 
   /// @dev Account with blacklist control, used for blocking sanctioned addresses.
@@ -54,13 +55,14 @@ contract WildcatMarketBase is ReentrancyGuard, IMarketEventsAndErrors {
   uint8 public immutable decimals;
 
   /// @dev Token name (prefixed name of underlying asset).
+  // @audit GO make name immutable
   string public name;
-
+  // @audit GO make symbol immutable
   /// @dev Token symbol (prefixed symbol of underlying asset).
   string public symbol;
 
   // ===================================================================== //
-  //                             Market State                               //
+  //                             Market State                              //
   // ===================================================================== //
 
   MarketState internal _state;
@@ -220,6 +222,7 @@ contract WildcatMarketBase is ReentrancyGuard, IMarketEventsAndErrors {
    * @dev Returns the amount of underlying assets the borrower is obligated
    *      to maintain in the market to avoid delinquency.
    */
+  // @audit what does nonReentrantView modifier do , most probably it checks read only reentrancy 
   function coverageLiquidity() external view nonReentrantView returns (uint256) {
     return currentState().liquidityRequired();
   }
