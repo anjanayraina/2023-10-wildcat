@@ -82,6 +82,7 @@ contract WildcatArchController is Ownable {
     return _borrowers.values();
   }
 
+  // @audit the order is not maintained so how are the returning using indexes
   function getRegisteredBorrowers(
     uint256 start,
     uint256 end
@@ -124,6 +125,8 @@ contract WildcatArchController is Ownable {
   function getRegisteredControllerFactories() external view returns (address[] memory) {
     return _controllerFactories.values();
   }
+
+  // @audit the order is not maintained so how are the returning using indexes
 
   function getRegisteredControllerFactories(
     uint256 start,
@@ -168,6 +171,8 @@ contract WildcatArchController is Ownable {
     return _controllers.values();
   }
 
+    // @audit the order is not maintained so how are the returning using indexes
+
   function getRegisteredControllers(
     uint256 start,
     uint256 end
@@ -210,6 +215,7 @@ contract WildcatArchController is Ownable {
   function getRegisteredMarkets() external view returns (address[] memory) {
     return _markets.values();
   }
+    // @audit the order is not maintained so how are the returning using indexes
 
   function getRegisteredMarkets(
     uint256 start,
