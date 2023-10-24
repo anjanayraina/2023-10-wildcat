@@ -238,6 +238,7 @@ contract WildcatMarketBase is ReentrancyGuard, IMarketEventsAndErrors {
   /**
    * @dev Total balance in underlying asset.
    */
+  
   function totalAssets() public view returns (uint256) {
     return IERC20(asset).balanceOf(address(this));
   }

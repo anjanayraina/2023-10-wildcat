@@ -64,6 +64,7 @@ contract WildcatMarketWithdrawals is WildcatMarketBase {
       status.scaledAmount,
       batch.scaledTotalAmount
     );
+    // @audit not accounting when newTotalWithdrawn < previousTotalWithdrawn , this can cause transactions to fail
     return newTotalWithdrawn - previousTotalWithdrawn;
   }
 

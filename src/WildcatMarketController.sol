@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+// @audit Contract doesnt have any functionality to pause and unpause the deployments of the markets 
 pragma solidity >=0.8.20;
 
 import { EnumerableSet } from 'openzeppelin/contracts/utils/structs/EnumerableSet.sol';
@@ -123,6 +124,7 @@ contract WildcatMarketController is IWildcatMarketControllerEventsAndErrors {
     return _authorizedLenders.values();
   }
 // @audit i think this does the same thing as above but it does so using less gas 
+// @audit the hash doesnt return sequentially so why have they used indices ?
   function getAuthorizedLenders(
     uint256 start,
     uint256 end
@@ -182,6 +184,7 @@ contract WildcatMarketController is IWildcatMarketControllerEventsAndErrors {
    */
 
   // @audit read about this function a little more 
+  // @audit this function is ungaurded 
   function updateLenderAuthorization(address lender, address[] memory markets) external {
     for (uint256 i; i < markets.length; i++) {
       address market = markets[i];
